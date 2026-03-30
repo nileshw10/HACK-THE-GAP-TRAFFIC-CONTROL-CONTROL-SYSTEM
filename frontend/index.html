@@ -19,170 +19,421 @@
   </head>
 
   <body>
-    <!-- HEADER -->
-    <header class="header">
-      <div class="header-left">
-        <div class="logo-box">🚦</div>
-        <div>
-          <h1 class="header-title">Smart Traffic Management</h1>
-          <p class="header-sub">YOLO · FLASK · FIREBASE · EMERGENCY DETECT</p>
-        </div>
+    <!-- ═══════════════════════════ STICKY NAVBAR ═══ -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-logo">
+        <span class="nav-logo-icon">🚦</span>
+        <span class="nav-logo-text">STMS</span>
       </div>
-
-      <div class="header-right">
-        <div id="api-status" class="status-badge offline">
-          <span id="api-status-text">CONNECTING...</span>
+      <div class="nav-tabs">
+        <a href="#home" class="nav-tab active" data-section="home">Home</a>
+        <a href="#about" class="nav-tab" data-section="about">About</a>
+        <a href="#control" class="nav-tab" data-section="control"
+          >Control System</a
+        >
+      </div>
+      <div class="nav-right">
+        <div id="api-status-nav" class="status-badge offline">
+          <span id="api-status-text-nav">CONNECTING...</span>
         </div>
         <div class="clock" id="clock">--:--:--</div>
       </div>
-    </header>
+    </nav>
 
-    <main class="main">
+    <!-- ═══════════════════════════════════════ HOME SECTION ═══ -->
+    <section class="hero" id="home">
+      <!-- Subtle grid overlay -->
+      <div class="hero-grid"></div>
+      <div class="particles" id="particles"></div>
 
-      <!-- STATS -->
-      <section class="stats-row">
-        <div class="stat-card">
-          <span>TOTAL</span>
-          <h2 id="stat-total">0</h2>
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          REAL-TIME ADAPTIVE SYSTEM · V2.0
         </div>
-        <div class="stat-card">
-          <span>BUSIEST</span>
-          <h2 id="stat-busiest">-</h2>
+
+        <h1 class="hero-title">
+          Smart Traffic<br /><span>Management System</span>
+        </h1>
+
+        <p class="hero-tagline">
+          AI-powered intersection control that detects vehicles in real time,
+          adapts signal timing dynamically, and clears the path for emergency
+          vehicles instantly.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge badge-green">YOLOv8</span>
+          <span class="badge badge-cyan">FLASK API</span>
+          <span class="badge badge-blue">FIREBASE RT</span>
+          <span class="badge badge-amber">EMERGENCY AI</span>
         </div>
-        <div class="stat-card">
-          <span>CONGESTION</span>
-          <h2 id="stat-congestion">LOW</h2>
-        </div>
-        <div class="stat-card">
-          <span>UPDATED</span>
-          <h2 id="stat-update">--</h2>
-        </div>
-      </section>
 
-      <!-- 🚨 EMERGENCY BANNER -->
-      <section>
-        <div id="emergency-banner" class="emergency-banner-global">
-          <div class="emergency-icon">🚑</div>
-          <div class="emergency-banner-content">
-            <h3 id="emergency-title">All Clear — No Emergency Vehicles</h3>
-            <span id="emergency-status" class="emergency-global-status clear">NORMAL OPERATION</span>
-          </div>
-          <div class="emergency-key-hint">
-            <span>Keyboard: ↑N ↓S →E ←W</span>
-          </div>
-        </div>
-      </section>
+        <!-- Traffic Junction Animation -->
+        <div class="junction-wrap">
+          <div class="junction">
+            <div class="road-h"></div>
+            <div class="road-v"></div>
+            <div class="road-box"></div>
+            <div class="mark mark-h1"></div>
+            <div class="mark mark-h2"></div>
+            <div class="mark mark-v1"></div>
+            <div class="mark mark-v2"></div>
 
-      <!-- VEHICLE COUNT + EMERGENCY INDICATORS -->
-      <section>
-        <h2>Vehicle Count &amp; Emergency Status</h2>
-
-        <div class="direction-grid">
-
-          <!-- NORTH -->
-          <div class="direction-card" id="dir-card-north">
-            <div class="dir-header">
-              <h3>NORTH</h3>
-              <div id="emg-north"><span class="emg-badge clear">✓ CLEAR</span></div>
+            <!-- Traffic Lights -->
+            <div class="tl tl-ne">
+              <div class="tl-dot r" id="tl-r1"></div>
+              <div class="tl-dot a" id="tl-a1"></div>
+              <div class="tl-dot" id="tl-g1"></div>
             </div>
-            <p id="count-north">0</p>
-            <div class="bar"><div id="bar-north"></div></div>
-            <div class="signals">
-              <span id="sig-n-red" class="signal">🔴</span>
-              <span id="sig-n-green" class="signal">🟢</span>
-              <span id="sig-n-amber" class="signal">🟡</span>
-              <span id="sig-n-timer" class="timer">--</span>
+            <div class="tl tl-sw">
+              <div class="tl-dot" id="tl-r2"></div>
+              <div class="tl-dot" id="tl-a2"></div>
+              <div class="tl-dot g" id="tl-g2"></div>
             </div>
-          </div>
 
-          <!-- SOUTH -->
-          <div class="direction-card" id="dir-card-south">
-            <div class="dir-header">
-              <h3>SOUTH</h3>
-              <div id="emg-south"><span class="emg-badge clear">✓ CLEAR</span></div>
-            </div>
-            <p id="count-south">0</p>
-            <div class="bar"><div id="bar-south"></div></div>
-            <div class="signals">
-              <span id="sig-s-red" class="signal">🔴</span>
-              <span id="sig-s-green" class="signal">🟢</span>
-              <span id="sig-s-amber" class="signal">🟡</span>
-              <span id="sig-s-timer" class="timer">--</span>
-            </div>
-          </div>
-
-          <!-- EAST -->
-          <div class="direction-card" id="dir-card-east">
-            <div class="dir-header">
-              <h3>EAST</h3>
-              <div id="emg-east"><span class="emg-badge clear">✓ CLEAR</span></div>
-            </div>
-            <p id="count-east">0</p>
-            <div class="bar"><div id="bar-east"></div></div>
-            <div class="signals">
-              <span id="sig-e-red" class="signal">🔴</span>
-              <span id="sig-e-green" class="signal">🟢</span>
-              <span id="sig-e-amber" class="signal">🟡</span>
-              <span id="sig-e-timer" class="timer">--</span>
-            </div>
-          </div>
-
-          <!-- WEST -->
-          <div class="direction-card" id="dir-card-west">
-            <div class="dir-header">
-              <h3>WEST</h3>
-              <div id="emg-west"><span class="emg-badge clear">✓ CLEAR</span></div>
-            </div>
-            <p id="count-west">0</p>
-            <div class="bar"><div id="bar-west"></div></div>
-            <div class="signals">
-              <span id="sig-w-red" class="signal">🔴</span>
-              <span id="sig-w-green" class="signal">🟢</span>
-              <span id="sig-w-amber" class="signal">🟡</span>
-              <span id="sig-w-timer" class="timer">--</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CAMERAS -->
-      <section>
-        <h2>Live Camera Feeds</h2>
-
-        <div class="camera-grid">
-          <div class="camera-card">
-            <div id="feed-north" class="camera-feed">
-              <div id="placeholder-north" class="placeholder">Loading camera...</div>
-            </div>
-            <p id="overlay-north">0 vehicles</p>
-          </div>
-
-          <div class="camera-card">
-            <div id="feed-south" class="camera-feed">
-              <div id="placeholder-south" class="placeholder">Loading camera...</div>
-            </div>
-            <p id="overlay-south">0 vehicles</p>
-          </div>
-
-          <div class="camera-card">
-            <div id="feed-east" class="camera-feed">
-              <div id="placeholder-east" class="placeholder">Loading camera...</div>
-            </div>
-            <p id="overlay-east">0 vehicles</p>
-          </div>
-
-          <div class="camera-card">
-            <div id="feed-west" class="camera-feed">
-              <div id="placeholder-west" class="placeholder">Loading camera...</div>
-            </div>
-            <p id="overlay-west">0 vehicles</p>
+            <!-- Animated Cars -->
+            <div class="jcar jcar-e"></div>
+            <div class="jcar jcar-w"></div>
+            <div class="jcar jcar-s"></div>
+            <div class="jcar jcar-n"></div>
           </div>
         </div>
-      </section>
+      </div>
 
-    </main>
+      <div class="scroll-hint">
+        <span>SCROLL</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ ABOUT SECTION ═══ -->
+    <section class="about" id="about">
+      <p class="about-heading">The Project</p>
+      <h2 class="about-title">Built to solve a <span>real problem</span></h2>
+
+      <div class="about-grid">
+        <!-- PROBLEM -->
+        <div class="about-card problem">
+          <div class="card-icon">🚧</div>
+          <div class="card-label">Problem</div>
+          <h3 class="card-title">Static Signals Fail Cities</h3>
+          <p class="card-body">
+            Traditional traffic lights run on fixed timers — completely blind to
+            actual traffic density. This wastes green time on empty roads and
+            holds up packed lanes unnecessarily.
+          </p>
+          <ul class="card-points">
+            <li>Fixed cycles ignore real-time congestion</li>
+            <li>Emergency vehicles get stuck in regular queues</li>
+            <li>No data feedback loop for optimisation</li>
+          </ul>
+        </div>
+
+        <!-- SOLUTION -->
+        <div class="about-card solution">
+          <div class="card-icon">🧠</div>
+          <div class="card-label">Solution</div>
+          <h3 class="card-title">Vision-Based Adaptive Control</h3>
+          <p class="card-body">
+            Live camera feeds from each lane are processed by YOLOv8 to count
+            vehicles every 100 ms. Signal timings adjust proportionally, and
+            emergency vehicles get instant green corridors.
+          </p>
+          <ul class="card-points">
+            <li>YOLOv8 detects and counts vehicles per lane</li>
+            <li>Firebase syncs signal state to the dashboard</li>
+            <li>Emergency override clears all lanes instantly</li>
+          </ul>
+        </div>
+
+        <!-- GOAL -->
+        <div class="about-card goal">
+          <div class="card-icon">🎯</div>
+          <div class="card-label">Goal</div>
+          <h3 class="card-title">Smarter, Safer Intersections</h3>
+          <p class="card-body">
+            A deployable, low-cost system any city can adopt using IP cameras
+            and a single server — reducing urban congestion and emergency
+            response times with no infrastructure overhaul.
+          </p>
+          <ul class="card-points">
+            <li>Reduce average wait time at intersections</li>
+            <li>Shorten emergency vehicle response time</li>
+            <li>Scale to multi-intersection city networks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ CONTROL SYSTEM SECTION ═══ -->
+    <div id="control">
+      <!-- DASHBOARD HEADER -->
+      <header class="header">
+        <div class="header-left">
+          <div class="logo-box">🚦</div>
+          <div>
+            <h1 class="header-title">Smart Traffic Management</h1>
+            <p class="header-sub">YOLO · FLASK · FIREBASE · EMERGENCY DETECT</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <div id="api-status" class="status-badge offline">
+            <span id="api-status-text">CONNECTING...</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <!-- STATS -->
+        <section class="stats-row">
+          <div class="stat-card">
+            <span>TOTAL</span>
+            <h2 id="stat-total">0</h2>
+          </div>
+          <div class="stat-card">
+            <span>BUSIEST</span>
+            <h2 id="stat-busiest">-</h2>
+          </div>
+          <div class="stat-card">
+            <span>CONGESTION</span>
+            <h2 id="stat-congestion">LOW</h2>
+          </div>
+          <div class="stat-card">
+            <span>UPDATED</span>
+            <h2 id="stat-update">--</h2>
+          </div>
+        </section>
+
+        <!-- 🚨 EMERGENCY BANNER -->
+        <section>
+          <div id="emergency-banner" class="emergency-banner-global">
+            <div class="emergency-icon">🚑</div>
+            <div class="emergency-banner-content">
+              <h3 id="emergency-title">All Clear — No Emergency Vehicles</h3>
+              <span id="emergency-status" class="emergency-global-status clear"
+                >NORMAL OPERATION</span
+              >
+            </div>
+            <div class="emergency-key-hint">
+              <span>Keyboard: ↑N ↓S →E ←W</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- VEHICLE COUNT + EMERGENCY INDICATORS -->
+        <section>
+          <h2>Vehicle Count &amp; Emergency Status</h2>
+
+          <div class="direction-grid">
+            <!-- NORTH -->
+            <div class="direction-card" id="dir-card-north">
+              <div class="dir-header">
+                <h3>NORTH</h3>
+                <div id="emg-north">
+                  <span class="emg-badge clear">✓ CLEAR</span>
+                </div>
+              </div>
+              <p id="count-north">0</p>
+              <div class="bar"><div id="bar-north"></div></div>
+              <div class="signals">
+                <span id="sig-n-red" class="signal">🔴</span>
+                <span id="sig-n-green" class="signal">🟢</span>
+                <span id="sig-n-amber" class="signal">🟡</span>
+                <span id="sig-n-timer" class="timer">--</span>
+              </div>
+            </div>
+
+            <!-- SOUTH -->
+            <div class="direction-card" id="dir-card-south">
+              <div class="dir-header">
+                <h3>SOUTH</h3>
+                <div id="emg-south">
+                  <span class="emg-badge clear">✓ CLEAR</span>
+                </div>
+              </div>
+              <p id="count-south">0</p>
+              <div class="bar"><div id="bar-south"></div></div>
+              <div class="signals">
+                <span id="sig-s-red" class="signal">🔴</span>
+                <span id="sig-s-green" class="signal">🟢</span>
+                <span id="sig-s-amber" class="signal">🟡</span>
+                <span id="sig-s-timer" class="timer">--</span>
+              </div>
+            </div>
+
+            <!-- EAST -->
+            <div class="direction-card" id="dir-card-east">
+              <div class="dir-header">
+                <h3>EAST</h3>
+                <div id="emg-east">
+                  <span class="emg-badge clear">✓ CLEAR</span>
+                </div>
+              </div>
+              <p id="count-east">0</p>
+              <div class="bar"><div id="bar-east"></div></div>
+              <div class="signals">
+                <span id="sig-e-red" class="signal">🔴</span>
+                <span id="sig-e-green" class="signal">🟢</span>
+                <span id="sig-e-amber" class="signal">🟡</span>
+                <span id="sig-e-timer" class="timer">--</span>
+              </div>
+            </div>
+
+            <!-- WEST -->
+            <div class="direction-card" id="dir-card-west">
+              <div class="dir-header">
+                <h3>WEST</h3>
+                <div id="emg-west">
+                  <span class="emg-badge clear">✓ CLEAR</span>
+                </div>
+              </div>
+              <p id="count-west">0</p>
+              <div class="bar"><div id="bar-west"></div></div>
+              <div class="signals">
+                <span id="sig-w-red" class="signal">🔴</span>
+                <span id="sig-w-green" class="signal">🟢</span>
+                <span id="sig-w-amber" class="signal">🟡</span>
+                <span id="sig-w-timer" class="timer">--</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CAMERAS -->
+        <section>
+          <h2>Live Camera Feeds</h2>
+
+          <div class="camera-grid">
+            <div class="camera-card">
+              <div id="feed-north" class="camera-feed">
+                <div id="placeholder-north" class="placeholder">
+                  Loading camera...
+                </div>
+              </div>
+              <p id="overlay-north">0 vehicles</p>
+            </div>
+
+            <div class="camera-card">
+              <div id="feed-south" class="camera-feed">
+                <div id="placeholder-south" class="placeholder">
+                  Loading camera...
+                </div>
+              </div>
+              <p id="overlay-south">0 vehicles</p>
+            </div>
+
+            <div class="camera-card">
+              <div id="feed-east" class="camera-feed">
+                <div id="placeholder-east" class="placeholder">
+                  Loading camera...
+                </div>
+              </div>
+              <p id="overlay-east">0 vehicles</p>
+            </div>
+
+            <div class="camera-card">
+              <div id="feed-west" class="camera-feed">
+                <div id="placeholder-west" class="placeholder">
+                  Loading camera...
+                </div>
+              </div>
+              <p id="overlay-west">0 vehicles</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <!-- /#control -->
 
     <script src="script.js"></script>
+
+    <script>
+      // ═══════════════════════════════════════════
+      //  NAVBAR — active tab + smooth scroll
+      // ═══════════════════════════════════════════
+      const tabs = document.querySelectorAll(".nav-tab");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetId = tab.getAttribute("data-section");
+          const target = document.getElementById(targetId);
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // Highlight active tab based on scroll position
+      const sections = ["home", "about", "control"];
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              tabs.forEach((t) => t.classList.remove("active"));
+              const match = document.querySelector(
+                `.nav-tab[data-section="${entry.target.id}"]`,
+              );
+              if (match) match.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.35 },
+      );
+
+      sections.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      // Navbar background on scroll
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        navbar.classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      // ═══════════════════════════════════════════
+      //  HERO PARTICLES
+      // ═══════════════════════════════════════════
+      const pc = document.getElementById("particles");
+      const cols = ["#22c55e", "#06b6d4", "#3b82f6", "#facc15"];
+      for (let i = 0; i < 28; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        const s = Math.random() * 4 + 2;
+        p.style.cssText = `
+        left:${Math.random() * 100}%;
+        top:${20 + Math.random() * 70}%;
+        width:${s}px; height:${s}px;
+        background:${cols[i % 4]};
+        --d:${4 + Math.random() * 6}s;
+        --delay:${Math.random() * 6}s;
+        box-shadow:0 0 ${s * 2}px ${cols[i % 4]};
+      `;
+        pc.appendChild(p);
+      }
+
+      // ═══════════════════════════════════════════
+      //  HERO TRAFFIC LIGHT CYCLE
+      // ═══════════════════════════════════════════
+      const tlStates = [
+        { r1: 1, a1: 0, g1: 0, r2: 0, a2: 0, g2: 1 },
+        { r1: 0, a1: 1, g1: 0, r2: 0, a2: 1, g2: 0 },
+        { r1: 0, a1: 0, g1: 1, r2: 1, a2: 0, g2: 0 },
+      ];
+      let tlIdx = 0;
+
+      function applyTL(s) {
+        ["r1", "a1", "g1", "r2", "a2", "g2"].forEach((id) => {
+          const el = document.getElementById("tl-" + id);
+          const col = id[0];
+          el.className = "tl-dot" + (s[id] ? " " + col : "");
+        });
+      }
+      applyTL(tlStates[0]);
+      setInterval(() => {
+        tlIdx = (tlIdx + 1) % 3;
+        applyTL(tlStates[tlIdx]);
+      }, 2000);
+    </script>
   </body>
 </html>
