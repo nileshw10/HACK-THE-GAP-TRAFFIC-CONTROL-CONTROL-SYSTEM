@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Traffic Management System</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Rajdhani:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo-box">🚦</div>
+        <div>
+          <h1 class="header-title">Smart Traffic Management</h1>
+          <p class="header-sub">YOLO · FLASK · FIREBASE · EMERGENCY DETECT</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div id="api-status" class="status-badge offline">
+          <span id="api-status-text">CONNECTING...</span>
+        </div>
+        <div class="clock" id="clock">--:--:--</div>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- STATS -->
+      <section class="stats-row">
+        <div class="stat-card">
+          <span>TOTAL</span>
+          <h2 id="stat-total">0</h2>
+        </div>
+        <div class="stat-card">
+          <span>BUSIEST</span>
+          <h2 id="stat-busiest">-</h2>
+        </div>
+        <div class="stat-card">
+          <span>CONGESTION</span>
+          <h2 id="stat-congestion">LOW</h2>
+        </div>
+        <div class="stat-card">
+          <span>UPDATED</span>
+          <h2 id="stat-update">--</h2>
+        </div>
+      </section>
+
+      <!-- 🚨 EMERGENCY BANNER -->
+      <section>
+        <div id="emergency-banner" class="emergency-banner-global">
+          <div class="emergency-icon">🚑</div>
+          <div class="emergency-banner-content">
+            <h3 id="emergency-title">All Clear — No Emergency Vehicles</h3>
+            <span id="emergency-status" class="emergency-global-status clear">NORMAL OPERATION</span>
+          </div>
+          <div class="emergency-key-hint">
+            <span>Keyboard: ↑N ↓S →E ←W</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- VEHICLE COUNT + EMERGENCY INDICATORS -->
+      <section>
+        <h2>Vehicle Count &amp; Emergency Status</h2>
+
+        <div class="direction-grid">
+
+          <!-- NORTH -->
+          <div class="direction-card" id="dir-card-north">
+            <div class="dir-header">
+              <h3>NORTH</h3>
+              <div id="emg-north"><span class="emg-badge clear">✓ CLEAR</span></div>
+            </div>
+            <p id="count-north">0</p>
+            <div class="bar"><div id="bar-north"></div></div>
+            <div class="signals">
+              <span id="sig-n-red" class="signal">🔴</span>
+              <span id="sig-n-green" class="signal">🟢</span>
+              <span id="sig-n-amber" class="signal">🟡</span>
+              <span id="sig-n-timer" class="timer">--</span>
+            </div>
+          </div>
+
+          <!-- SOUTH -->
+          <div class="direction-card" id="dir-card-south">
+            <div class="dir-header">
+              <h3>SOUTH</h3>
+              <div id="emg-south"><span class="emg-badge clear">✓ CLEAR</span></div>
+            </div>
+            <p id="count-south">0</p>
+            <div class="bar"><div id="bar-south"></div></div>
+            <div class="signals">
+              <span id="sig-s-red" class="signal">🔴</span>
+              <span id="sig-s-green" class="signal">🟢</span>
+              <span id="sig-s-amber" class="signal">🟡</span>
+              <span id="sig-s-timer" class="timer">--</span>
+            </div>
+          </div>
+
+          <!-- EAST -->
+          <div class="direction-card" id="dir-card-east">
+            <div class="dir-header">
+              <h3>EAST</h3>
+              <div id="emg-east"><span class="emg-badge clear">✓ CLEAR</span></div>
+            </div>
+            <p id="count-east">0</p>
+            <div class="bar"><div id="bar-east"></div></div>
+            <div class="signals">
+              <span id="sig-e-red" class="signal">🔴</span>
+              <span id="sig-e-green" class="signal">🟢</span>
+              <span id="sig-e-amber" class="signal">🟡</span>
+              <span id="sig-e-timer" class="timer">--</span>
+            </div>
+          </div>
+
+          <!-- WEST -->
+          <div class="direction-card" id="dir-card-west">
+            <div class="dir-header">
+              <h3>WEST</h3>
+              <div id="emg-west"><span class="emg-badge clear">✓ CLEAR</span></div>
+            </div>
+            <p id="count-west">0</p>
+            <div class="bar"><div id="bar-west"></div></div>
+            <div class="signals">
+              <span id="sig-w-red" class="signal">🔴</span>
+              <span id="sig-w-green" class="signal">🟢</span>
+              <span id="sig-w-amber" class="signal">🟡</span>
+              <span id="sig-w-timer" class="timer">--</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CAMERAS -->
+      <section>
+        <h2>Live Camera Feeds</h2>
+
+        <div class="camera-grid">
+          <div class="camera-card">
+            <div id="feed-north" class="camera-feed">
+              <div id="placeholder-north" class="placeholder">Loading camera...</div>
+            </div>
+            <p id="overlay-north">0 vehicles</p>
+          </div>
+
+          <div class="camera-card">
+            <div id="feed-south" class="camera-feed">
+              <div id="placeholder-south" class="placeholder">Loading camera...</div>
+            </div>
+            <p id="overlay-south">0 vehicles</p>
+          </div>
+
+          <div class="camera-card">
+            <div id="feed-east" class="camera-feed">
+              <div id="placeholder-east" class="placeholder">Loading camera...</div>
+            </div>
+            <p id="overlay-east">0 vehicles</p>
+          </div>
+
+          <div class="camera-card">
+            <div id="feed-west" class="camera-feed">
+              <div id="placeholder-west" class="placeholder">Loading camera...</div>
+            </div>
+            <p id="overlay-west">0 vehicles</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
