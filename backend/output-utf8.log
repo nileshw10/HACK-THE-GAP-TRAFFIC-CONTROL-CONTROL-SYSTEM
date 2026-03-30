@@ -1,0 +1,67 @@
+﻿[Firebase] Realtime URL: https://traffic-system-c8423-default-rtdb.firebaseio.com/
+[Firebase] Project ID: YOUR_PROJECT_ID
+[YOLO] Using device: cpu
+[YOLO] Loading model...
+YOLOv8n summary (fused): 72 layers, 3,151,904 parameters, 0 gradients, 8.7 GFLOPs
+[YOLO] Model ready
+ΓÜá  Serial not connected: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+=======================================================
+  SMART TRAFFIC MANAGEMENT SYSTEM
+=======================================================
+Γ¥î Firestore failed: [Errno 2] No such file or directory: 'D:\\Hack The Gap\\backend\\serviceAccountKey.json'
+Γ£à Realtime Database connected
+[CAM] Started reader: LANE_N ΓåÆ http://10.81.49.239/stream
+[CAM] Started reader: LANE_E ΓåÆ http://10.81.49.142/stream
+[CAM] Started reader: LANE_S ΓåÆ http://10.81.49.153/stream
+[CAM] Started reader: LANE_W ΓåÆ http://10.81.49.110/stream
+[YOLO] Detection thread started
+[CTRL] Traffic controller started
+[API] Flask server started ΓåÆ http://0.0.0.0:5000
+=======================================================
+  Dashboard: open frontend/index.html in browser
+  Press ESC in the OpenCV window to quit
+=======================================================
+ * Serving Flask app 'python'
+ * Debug mode: off
+python.exe : 
+WARNING: This is a 
+development server. 
+Do not use it in a 
+production 
+deployment. Use a 
+production WSGI 
+server instead.
+At line:1 char:1
++ & "D:\Hack The Gap
+\.venv\Scripts\pytho
+n.exe" python.py > 
+output.log 2 ...
++ ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: (WARN   
+ ING: This i...s    
+erver instead.:    
+String) [], Rem    
+oteException
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+ * Running on all 
+addresses (0.0.0.0)
+ * Running on http:/
+/127.0.0.1:5000
+ * Running on http:/
+/172.16.132.59:5000
+Press CTRL+C to quit
+[2026-03-30 12:55:48] N:  0 E:  0 S:  0 W:  0 | OK
+[2026-03-30 12:55:51] N:  0 E:  0 S:  0 W:  0 | OK
+[2026-03-30 12:55:54] N:  0 E:  0 S:  0 W:  0 | OK
+[CAM LANE_S] Stream error: HTTPConnectionPool(host='10.81.49.153', port=80): Max retries exceeded with url: /stream (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000002058DCB8E90>, 'Connection to 10.81.49.153 timed out. (connect timeout=10)')) ΓÇö reconnecting...
+[CAM LANE_N] Stream error: HTTPConnectionPool(host='10.81.49.239', port=80): Max retries exceeded with url: /stream (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000002058DA13A10>, 'Connection to 10.81.49.239 timed out. (connect timeout=10)')) ΓÇö reconnecting...
+[CAM LANE_E] Stream error: HTTPConnectionPool(host='10.81.49.142', port=80): Max retries exceeded with url: /stream (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000002058DB7BD90>, 'Connection to 10.81.49.142 timed out. (connect timeout=10)')) ΓÇö reconnecting...
+[CAM LANE_W] Stream error: HTTPConnectionPool(host='10.81.49.110', port=80): Max retries exceeded with url: /stream (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000002058DCC4190>, 'Connection to 10.81.49.110 timed out. (connect timeout=10)')) ΓÇö reconnecting...
