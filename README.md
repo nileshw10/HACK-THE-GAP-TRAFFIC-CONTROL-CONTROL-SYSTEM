@@ -8,10 +8,13 @@ An AI-powered real-time traffic management system that uses **YOLOv8 object dete
 
 ## 📸 Demo
 
-<img width="1834" height="901" alt="Screenshot 2026-03-30 210308" src="https://github.com/user-attachments/assets/35862c8d-9e27-4695-8195-567038a50de8" />
-<img width="1767" height="895" alt="Screenshot 2026-03-30 210333" src="https://github.com/user-attachments/assets/260c6794-a85d-4ea2-9b52-22099eb6256b" />
+<img width="1920" height="1080" alt="Screenshot (1)" src="https://github.com/user-attachments/assets/5a4b7d2e-47ef-4bb4-8d51-f02d75668b94" />
 
+<img width="1920" height="1080" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/cfd44fb8-8720-4d51-9821-f794826fc302" />
 
+<img width="1920" height="1080" alt="Screenshot (3)" src="https://github.com/user-attachments/assets/81a3192e-634b-474a-9230-e2be2f867aa7" />
+
+<img width="1920" height="1080" alt="Screenshot (4)" src="https://github.com/user-attachments/assets/409c51eb-a889-4826-a131-a5047b8e9e49" />
 
 
 ## 🧠 How It Works
